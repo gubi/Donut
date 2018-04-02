@@ -84,6 +84,7 @@ server {
         }
 }
 "
+cron_config="0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(3600))' && certbot -q renew"
 
 # check if ENV are set
 if [[ -z "${webserver}" ]]; then
@@ -115,7 +116,7 @@ else
         fi
         if [[ "${webserver}" == "apache" ]]; then
             apt install -y apache2
-            apt install -y certbot
+            apt install -y python-certbot-apache
         fi
         apt install -y curl software-properties-common
         apt install -y php7.1-fpm php7.1-cli php7.1-common php7.1-json php7.1-opcache php7.1-mysql php7.1-mbstring php7.1-mcrypt php7.1-zip php7.1-fpm php7.1-ldap php7.1-tidy php7.1-recode php7.1-curl
@@ -128,8 +129,7 @@ else
         ufw enable
         ufw allow ssh
         if [[ "${webserver}" == "nginx" ]]; then
-            ufw allow 'Nginx HTTP'
-            ufw allow 'Nginx HTTPS'
+            ufw allow 'Nginx Full'
         fi
         if [[ "${webserver}" == "apache" ]]; then
             ufw allow 'Apache Full'
@@ -137,7 +137,12 @@ else
         ufw status
 
         # Create Let's Encrypt certificate
-        certbot -n -m $owner_mail --no-eff-email --force-renewal -d $server_name
+        if [[ "${webserver}" == "nginx" ]]; then
+            certbot --nginx -d $server_name
+        fi
+        if [[ "${webserver}" == "apache" ]]; then
+            certbot --apache -d $server_name
+        fi
         # certbot renew --dry-run
 
 
@@ -201,6 +206,9 @@ else
         if [[ "${webserver}" == "apache" ]]; then
             service apache2 restart
         fi
+
+        # Install the crontab to renew the certificate
+        echo $cron_config >> /etc/cron.d/certbot
 
         echo "Done."
     fi
