@@ -21,15 +21,13 @@ homepage="
 "
 info="<?php phpinfo(); ?>"
 apache_server_config="
-NameVirtualHost ${server_name}:80
-
 <VirtualHost ${server_name}:80>
         ServerName ${server_name}
         ServerAdmin webmaster@${server_name}
         DocumentRoot ${webroot}
 
-        ErrorLog ${APACHE_LOG_DIR}/${server_name}.error.log
-        CustomLog ${APACHE_LOG_DIR}/${server_name}.access.log combined
+        ErrorLog \${APACHE_LOG_DIR}/${server_name}.error.log
+        CustomLog \${APACHE_LOG_DIR}/${server_name}.access.log combined
 
         # Root
         <Directory ${webroot}>
@@ -45,8 +43,8 @@ apache_server_ssl_config="
             ServerAdmin webmaster@${server_name}
             DocumentRoot ${webroot}
 
-            ErrorLog ${APACHE_LOG_DIR}/${server_name}.ssl.error.log
-            CustomLog ${APACHE_LOG_DIR}/${server_name}.ssl.access.log combined
+            ErrorLog \${APACHE_LOG_DIR}/${server_name}.ssl.error.log
+            CustomLog \${APACHE_LOG_DIR}/${server_name}.ssl.access.log combined
 
             # SSL
             SSLCertificateFile /etc/letsencrypt/live/${server_name}/fullchain.pem
@@ -148,10 +146,10 @@ else
 
         # Display the server status
         if [[ "${webserver}" == "nginx" ]]; then
-            systemctl status nginx
+            service nginx status
         fi
         if [[ "${webserver}" == "apache" ]]; then
-            systemctl status apache2
+            service apache2 status
         fi
 
         # Modify permissions on webserver root
@@ -195,13 +193,14 @@ else
             echo "$apache_server_config" > /etc/apache2/sites-available/$server_name.conf
             echo "$apache_server_ssl_config" > /etc/apache2/sites-available/$server_name-le.conf
             # Enable the webserver
+            sudo a2enmod ssl
             a2ensite $server_name.conf $server_name-le.conf
         fi
 
         # Check if all is ok and restart the webserver
         if [[ "${webserver}" == "nginx" ]]; then
             nginx -t
-            systemctl restart nginx
+            service nginx restart
         fi
         if [[ "${webserver}" == "apache" ]]; then
             service apache2 restart
