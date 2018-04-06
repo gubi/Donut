@@ -117,6 +117,7 @@ else
             apt install -y python-certbot-apache
         fi
         apt install -y curl software-properties-common
+        add-apt-repository -y ppa:ondrej/php
         apt install -y php7.1-fpm php7.1-cli php7.1-common php7.1-json php7.1-opcache php7.1-mysql php7.1-mbstring php7.1-mcrypt php7.1-zip php7.1-fpm php7.1-ldap php7.1-tidy php7.1-recode php7.1-curl
 
         if [[ "${webserver}" == "apache" ]]; then
