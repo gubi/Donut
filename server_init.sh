@@ -1,6 +1,6 @@
 #!/bin/bash
 
-owner_mail="gubi.ale@iod.io"
+owner_mail="$3"
 
 root=/var/www
 webserver=$1
