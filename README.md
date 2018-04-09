@@ -1,4 +1,4 @@
-# auto-server
+# Donut
 This script automatize the first server install process in an Ubuntu/Debian environment.<br />
 * Get an empty virtual server
 * Launch this scipt under the `/home/`
