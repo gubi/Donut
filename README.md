@@ -22,7 +22,7 @@ The script will proceed to execute this sequence of stuff:
 10. Enable and configure the Firewall ([ufw](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29))
 11. Modify permissions on webserver root
 12. Remove the default `html` folder created by the web server
-13 Create the `index.php` and the `info.php` files
+13. Create the `index.php` and the `info.php` files
 14. Configure the web server (removing also the default configurations)
 15. Enable certbot certificates to keep updated via `cron`
 16. Restart the server
