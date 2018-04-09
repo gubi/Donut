@@ -1,7 +1,7 @@
 # Donut
 This script automatize the first server install process in an Ubuntu/Debian environment.<br />
 * Get an empty virtual server
-* Download and launch this scipt under the `/home/`
+* Download and launch this script under the `/home/`
 ``` shell
 $ cd 
 $ wget -p https://raw.githubusercontent.com/gubi/Donut/master/server_init.sh -O server_init.sh
