@@ -19,7 +19,7 @@ The script will proceed to execute this sequence of stuff:
 7. Update the System
 8. Install `curl` and `software-properties-common`
 9. Install the latest version of PHP
-10. Enable and configure [ufw](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29)
+10. Enable and configure the Firewall ([ufw](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29))
 11. Modify permissions on webserver root
 12. Remove the default `html` folder created by the web server
 13 Create the `index.php` and the `info.php` files
