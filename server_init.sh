@@ -213,7 +213,9 @@ else
         echo $cron_config >> /etc/cron.d/certbot
 
         echo "Done."
+        echo "Rebooting the server..."
         echo "See https://www.ssllabs.com/ssltest/analyze.html?d=$server_name for the SSL certificate status"
+        reboot && exit
     fi
 fi
 exit
