@@ -4,8 +4,7 @@ This script automatize the first server install process in an Ubuntu/Debian envi
 * Download and launch this scipt under the `/home/`
 ``` shell
 $ cd 
-$ wget https://raw.githubusercontent.com/gubi/Donut/master/server_init.sh
-$ chmod +x server_init.sh
+$ wget -p https://raw.githubusercontent.com/gubi/Donut/master/server_init.sh -O server_init.sh
 $ ./server_init.sh <WEBSERVER_TYPE> <DOMAIN.TLD>
 ```
 (for example: `$ ./server_init.sh apache example.com`)
